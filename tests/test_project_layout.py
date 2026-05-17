@@ -1,12 +1,24 @@
 from __future__ import annotations
 
 import csv
+import os
 import subprocess
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "src"
+
+
+def _env_with_src_path() -> dict[str, str]:
+    env = os.environ.copy()
+    existing = env.get("PYTHONPATH", "")
+    src_path = str(SRC)
+    env["PYTHONPATH"] = (
+        f"{src_path}{os.pathsep}{existing}" if existing else src_path
+    )
+    return env
 
 
 def test_required_project_files_exist() -> None:
@@ -47,6 +59,7 @@ def test_cli_help_runs() -> None:
     result = subprocess.run(
         [sys.executable, "-m", "ecg_rr_tool.cli", "--help"],
         cwd=ROOT,
+        env=_env_with_src_path(),
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -60,6 +73,7 @@ def test_gui_help_runs() -> None:
     result = subprocess.run(
         [sys.executable, "-m", "ecg_rr_tool.gui", "--help"],
         cwd=ROOT,
+        env=_env_with_src_path(),
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
