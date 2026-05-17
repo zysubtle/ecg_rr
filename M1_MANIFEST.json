@@ -1,0 +1,7 @@
+{
+  "name": "ecg_rr_m1_starter_pack",
+  "created": "2026-05-17",
+  "milestone": "M1",
+  "csv_fixture": "data/examples/bidmc_01_Signals_2500.csv",
+  "notes": "M1 only: project startup package + minimal skeleton. Full algorithm and GUI are intentionally deferred."
+}
