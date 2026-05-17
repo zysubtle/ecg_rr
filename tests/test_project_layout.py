@@ -66,7 +66,7 @@ def test_cli_help_runs() -> None:
         check=False,
     )
     assert result.returncode == 0, result.stderr
-    assert "ECG RR analysis tool skeleton" in result.stdout
+    assert "ECG RR preprocessing pipeline" in result.stdout
 
 
 def test_gui_help_runs() -> None:
